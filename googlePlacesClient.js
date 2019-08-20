@@ -1,5 +1,3 @@
-//import 'results.js';
-
 var googleMapsClient = require('@google/maps').createClient({
     key: 'AIzaSyBqsRqdca3Mn6W0B7vnGfjjUCt85PXZPJ0'
 });
@@ -21,8 +19,10 @@ function findPlacesNearby(lat, long) {
                 locationsString = locationsString + response.json.results[i].name;
                 //console.log(response.json.results[i].name);
                 //console.log(locationsString);
-                return locationsString;
+                //return locationsString;
             }
+            console.log(locationsString);
+            return locationsString;
             console.log("-----------------------------------------------------------------");
         }
 
