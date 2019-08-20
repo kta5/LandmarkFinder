@@ -35,6 +35,7 @@ function findPlacesNearby(location) {
             var i;
             var nearbyLocations = '';
             var nearbyLocationsTemp = [];
+            var finalSortedRatingArray = [];
             for (i = 0; i < response.json.results.length; i++) {
                 //nearbyLocationsTemp.append(response.json.results);
                 // console.log(nearbyLocationsTemp);
@@ -47,14 +48,18 @@ function findPlacesNearby(location) {
                     //console.log(response.json.results[i]);
                 }
                 nearbyLocationsTemp.push(response.json.results[i]);
-                // if(i > 4){
-                //     break;
-                // }
-            }
-            sortNearbyLocations(nearbyLocationsTemp);
-            locationsString = locationsString + "," + nearbyLocations;
 
-            //console.log(locationsString);
+            }
+            finalSortedRatingArray = sortNearbyLocations(nearbyLocationsTemp);
+           
+
+
+            locationsString = locationsString;// + "," + nearbyLocations;
+
+            console.log(locationsString); console.log(finalSortedRatingArray);
+            for (j = 0; j < finalSortedRatingArray.length; j++) {
+                //console.log(finalSortedRatingArray[j].rating + " : " + finalSortedRatingArray[j].name);
+            }
             console.log("-----------------------------------------------------------------");
             return locationsString;
         }
@@ -68,20 +73,31 @@ var test1 = myLocations.map(function (location) { //iterates through each locati
 });
 
 function sortNearbyLocations(locationsList) {
+
+    function Descending(a, b) {
+        return b.rating - a.rating;
+        //if (a[0] > b[0]) return -1;
+        //if (a[0] < b[0]) return 1;
+        //return 0;
+    }
+
+
     var j;
     var newTempArray = [];
     for (j = 1; j < locationsList.length; j++) {
-        if (locationsList[j].rating == undefined){
+        if (locationsList[j].rating == undefined) {
             j++; //removes undefined rating
         }
         else {
-            newTempArray.push(locationsList[j].rating, locationsList[j].name ); //links landmark name to rating
+            newTempArray.push(locationsList[j].rating, locationsList[j].name); //links landmark name to rating
         }
     }
     //console.log(newArray);
     //console.log(newTempArray);
-    newTempArray.sort(function (a, b) { return b-a; });
-    console.log(newTempArray);
+    //newTempArray.sort(function (a, b) { return b-a; });
+
+    newTempArray.sort(Descending);
+    //console.log(newTempArray);
     return newTempArray;
 
 }
